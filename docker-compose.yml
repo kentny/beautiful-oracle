@@ -3,13 +3,14 @@ version: '3.4'
 services:
   db:
     image: postgres:14.2
+    container_name: postgresql
     ports: 
       - 5432:5432
     volumes:
       - ./db/init:/docker-entrypoint-initdb.d
+      - database:/var/lib/postgresql/data
     env_file:
       - ./db/.env
-    hostname: postgres
     restart: always
 
   chainlink:
@@ -24,12 +25,12 @@ services:
     command: local node
     restart: on-failure
 
-  # adaptor:
-  #   ports: 
-  #     - 8080:8080
-  #   build: ./adaptor
-  #   image: adaptor
-  #   restart: on-failure
+  adaptor:
+    ports: 
+      - 8082:3000
+    build: ./adaptor
+    image: adaptor
+    restart: on-failure
 
 volumes:
   database:
