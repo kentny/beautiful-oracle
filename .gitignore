@@ -2,4 +2,5 @@
 
 .env
 
-chainlink/data/*
+/chainlink/data/*
+!/chainlink/data/*.sample
