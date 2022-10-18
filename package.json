@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/kentny/beautiful-oracle#readme",
   "dependencies": {
-    "@chainlink/contracts": "^0.5.1"
+    "@chainlink/contracts": "^0.5.1",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "hardhat": "^2.12.0"
   }
 }
