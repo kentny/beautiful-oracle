@@ -1,5 +1,6 @@
 import { ethers } from 'hardhat'
 import 'dotenv/config'
+import { stringToBytes32 } from './parser'
 
 async function main() {
     // const currentTimestampInSeconds = Math.round(Date.now() / 1000);
@@ -15,7 +16,11 @@ async function main() {
 
     // console.log(`Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`);
     const APIConsumer = await ethers.getContractFactory('APIConsumer')
-    const apiConsumer = await APIConsumer.deploy(process.env.CHAINLINK_ORACLE_ADDRESS!, process.env.CHAINLINK_ORACLE_JOB_ID!)
+    const apiConsumer = await APIConsumer.deploy(
+        process.env.CHAINLINK_LINK_TOKEN_ADDRESS!,
+        process.env.CHAINLINK_ORACLE_ADDRESS!,
+        stringToBytes32(process.env.CHAINLINK_ORACLE_JOB_ID!)
+    )
 
     await apiConsumer.deployed()
 

@@ -19,8 +19,8 @@ contract APIConsumer is ChainlinkClient, ConfirmedOwner {
 
     event RequestMessage(bytes32 indexed requestId, string message);
 
-    constructor(address _oracleAddress, bytes32 _jobId) ConfirmedOwner(msg.sender) {
-        setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB); // LINK token contract in the goerli network.
+    constructor(address _linkTokenAddress, address _oracleAddress, bytes32 _jobId) ConfirmedOwner(msg.sender) {
+        setChainlinkToken(_linkTokenAddress);
         oracleAddress = _oracleAddress;
         setChainlinkOracle(_oracleAddress);
         jobId = _jobId;
