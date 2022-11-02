@@ -20,9 +20,9 @@ async function main() {
     await apiConsumer.deployed()
 
     // console.log(`APIConsumer: ${apiConsumer.jobId}`)
+    console.log(`Contract Address: ${apiConsumer.address}`)
     console.log(`fee: ${await apiConsumer.fee()}`)
     console.log(`jobId: ${await apiConsumer.jobId()}`)
-    console.log(`HOGE: ${process.env.HOGE}`)
 }
 
 // We recommend this pattern to be able to use async/await everywhere

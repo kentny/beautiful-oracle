@@ -1,41 +1,41 @@
 version: '3.4'
 
 services:
-  db:
-    image: postgres:14.2
-    container_name: postgresql
-    ports: 
-      - 5432:5432
-    volumes:
-      - ./db/init:/docker-entrypoint-initdb.d
-      - database:/var/lib/postgresql/data
-    env_file:
-      - ./db/.env
-    restart: always
+    db:
+        image: postgres:14.2
+        container_name: postgresql
+        ports:
+            - 5432:5432
+        volumes:
+            - ./db/init:/docker-entrypoint-initdb.d
+            - database:/var/lib/postgresql/data
+        env_file:
+            - ./db/.env
+        restart: always
 
-  chainlink:
-    image: smartcontract/chainlink:1.8.1-root
-    container_name: chainlink
-    tty: true
-    ports:
-      - 6688:6688
-    env_file:
-      - ./chainlink/.env
-    volumes:
-      - ./chainlink/data:/chainlink
-    depends_on:
-      - db
-    command: local n  -p /chainlink/.password -a /chainlink/.api
-    restart: on-failure
+    chainlink:
+        image: smartcontract/chainlink:1.8.1-root
+        container_name: chainlink
+        tty: true
+        ports:
+            - 6688:6688
+        env_file:
+            - ./chainlink/.env
+        volumes:
+            - ./chainlink/data:/chainlink
+        depends_on:
+            - db
+        command: local n  -p /chainlink/.password -a /chainlink/.api
+        restart: on-failure
 
-  adaptor:
-    container_name: adaptor
-    ports: 
-      - 8082:3000
-    build: ./adaptor
-    image: adaptor
-    restart: on-failure
+    # adaptor:
+    #   container_name: adaptor
+    #   ports:
+    #     - 8082:3000
+    #   build: ./adaptor
+    #   image: adaptor
+    #   restart: on-failure
 
 volumes:
-  database:
-    driver: local
+    database:
+        driver: local
