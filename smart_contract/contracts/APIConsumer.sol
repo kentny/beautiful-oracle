@@ -15,7 +15,8 @@ contract APIConsumer is ChainlinkClient, ConfirmedOwner {
     Response public response;
     address public oracleAddress;
     bytes32 public jobId;
-    uint256 public fee;
+    string public url;
+    uint256 private fee;
 
     event RequestMessage(bytes32 indexed requestId, string message);
 
@@ -29,12 +30,20 @@ contract APIConsumer is ChainlinkClient, ConfirmedOwner {
         console.log(fee);
     }
 
-    function requestAPI() public returns (bytes32 requestId) {
+    function setUrl(string memory _url) public {
+        url = _url;
+    }
+
+    function requestAPI(string memory _path) public returns (bytes32 requestId) {
         Chainlink.Request memory req = buildChainlinkRequest(
             jobId,
             address(this),
             this.fulfill.selector
         );
+
+        req.add('get', url);
+        req.add('path', _path);
+
         return sendChainlinkRequest(req, fee);
     }
 
