@@ -26,7 +26,6 @@ async function main() {
 
     // console.log(`APIConsumer: ${apiConsumer.jobId}`)
     console.log(`Contract Address: ${apiConsumer.address}`)
-    console.log(`fee: ${await apiConsumer.fee()}`)
     console.log(`jobId: ${await apiConsumer.jobId()}`)
 }
 
